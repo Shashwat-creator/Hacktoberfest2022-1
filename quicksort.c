@@ -1,0 +1,60 @@
+#include<stdio.h>
+int main()
+{
+int x[10],lowerBound,upperBound,e,f,lowerBoundStack[10],upperBoundStack[10],top,pp,g,i;
+i=0;
+for(i=0;i<10;i++)
+{
+printf("Enter a number :");
+scanf("%d",&x[i]);
+}
+top=10;
+e=lowerBound=0;
+f=upperBound=9;
+top--;
+lowerBoundStack[top]=0;
+upperBoundStack[top]=9;
+while(top<10)
+{
+lowerBound=lowerBoundStack[top];
+upperBound=upperBoundStack[top];
+top++;
+e=lowerBound;
+f=upperBound;
+while(e<f)
+{
+while(e<upperBound && x[e]<=x[lowerBound])e++;
+while(x[f]>x[lowerBound])f--;
+if(e<f)
+{
+g=x[e];
+x[e]=x[f];
+x[f]=g;
+}
+else
+{
+pp=f;
+g=x[lowerBound];
+x[lowerBound]=x[f];
+x[f]=g;
+}
+}
+if(lowerBound<pp-1)
+{
+top--;
+lowerBoundStack[top]=lowerBound;
+upperBoundStack[top]=pp-1;
+}
+if(pp+1<upperBound)
+{
+top--;
+lowerBoundStack[top]=pp+1;
+upperBoundStack[top]=upperBound;
+}
+}
+for(i=0;i<10;i++)
+{
+printf("%d\n",x[i]);
+}
+return 0;
+}
